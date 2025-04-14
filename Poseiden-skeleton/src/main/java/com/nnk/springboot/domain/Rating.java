@@ -1,9 +1,10 @@
 package com.nnk.springboot.domain;
 
-import javax.persistence.*;
+//import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "rating")
