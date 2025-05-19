@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -29,20 +28,19 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .defaultSuccessUrl("/bidList/list", true) // Redirige vers /home après connexion
-                .permitAll()
+
+                .defaultSuccessUrl("/bidList/list", true)
                 .permitAll()
                 .and()
                 .logout()
                 .logoutUrl("/logout")
                 .permitAll();
-
         return http.build();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Utilise BCrypt pour encoder les mots de passe
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -52,9 +50,8 @@ public class SecurityConfig {
                 .dataSource(dataSource)
                 .usersByUsernameQuery("SELECT username, password, TRUE as enabled FROM users WHERE username = ?")
                 .authoritiesByUsernameQuery("SELECT username, role as authority FROM users WHERE username = ?")
-                .passwordEncoder(passwordEncoder()) // Utilise BCrypt pour vérifier les mots de passe
+                .passwordEncoder(passwordEncoder())
                 .and()
                 .build();
     }
-
 }

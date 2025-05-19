@@ -21,6 +21,7 @@ public class CurvePoint {
 
     @Positive(message = "Term quantity must be positive")
     @NotNull(message = "Term is required")
+
     @Column()
     private Double term;
 

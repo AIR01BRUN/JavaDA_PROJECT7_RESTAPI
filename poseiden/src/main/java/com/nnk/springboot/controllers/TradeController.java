@@ -34,7 +34,7 @@ public class TradeController {
 
     @GetMapping("/trade/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-
+        model.addAttribute("trade", tradeService.getTradeById(id));
         return "trade/update";
     }
 
