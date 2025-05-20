@@ -18,7 +18,6 @@ public class UserService {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
-    // Supprime ou commente cette méthode, elle ne doit pas être utilisée pour
     // l'authentification Spring Security
     // public boolean login(String username, String password) {
     // User user = userRepository.findByUsername(username);

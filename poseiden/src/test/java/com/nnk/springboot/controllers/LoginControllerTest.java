@@ -23,7 +23,7 @@ class LoginControllerTest {
 
     @Test
     void login_ShouldReturnLoginView() {
-        ModelAndView mav = loginController.login();
+        ModelAndView mav = loginController.login(null, null);
         assertEquals("login", mav.getViewName());
     }
 

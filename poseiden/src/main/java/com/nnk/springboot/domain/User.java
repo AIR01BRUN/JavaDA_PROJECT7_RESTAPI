@@ -25,6 +25,8 @@ public class User {
     @NotNull(message = "Role is mandatory")
     @Column()
     private String role;
+    @Column(name = "enabled", columnDefinition = "boolean default true")
+    private boolean enabled = true;
 
     public User(String username,
             String password,
