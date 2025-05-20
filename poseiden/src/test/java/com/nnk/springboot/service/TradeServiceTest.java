@@ -24,7 +24,7 @@ class TradeServiceTest {
     }
 
     @Test
-    void getAllTrades_returnsListOfTrades() {
+    void getAllTrades() {
         Trade trade1 = new Trade();
         Trade trade2 = new Trade();
         when(tradeRepository.findAll()).thenReturn(Arrays.asList(trade1, trade2));
@@ -36,7 +36,7 @@ class TradeServiceTest {
     }
 
     @Test
-    void getTradeById_existingId_returnsTrade() {
+    void getTradeById() {
         Trade trade = new Trade();
         trade.setId(1);
         when(tradeRepository.findById(1)).thenReturn(Optional.of(trade));
@@ -49,7 +49,7 @@ class TradeServiceTest {
     }
 
     @Test
-    void getTradeById_nonExistingId_returnsNull() {
+    void getTradeById_NotFound() {
         when(tradeRepository.findById(99)).thenReturn(Optional.empty());
 
         Trade result = tradeService.getTradeById(99);
@@ -59,7 +59,7 @@ class TradeServiceTest {
     }
 
     @Test
-    void addTrade_savesAndReturnsTrade() {
+    void addTrade() {
         Trade trade = new Trade();
         when(tradeRepository.save(trade)).thenReturn(trade);
 
@@ -70,7 +70,7 @@ class TradeServiceTest {
     }
 
     @Test
-    void updateTrade_savesAndReturnsTrade() {
+    void updateTrade() {
         Trade trade = new Trade();
         when(tradeRepository.save(trade)).thenReturn(trade);
 
@@ -81,7 +81,7 @@ class TradeServiceTest {
     }
 
     @Test
-    void deleteTrade_deletesById() {
+    void deleteTrade() {
         tradeService.deleteTrade(5);
 
         verify(tradeRepository).deleteById(5);

@@ -18,15 +18,6 @@ public class UserService {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
-    // l'authentification Spring Security
-    // public boolean login(String username, String password) {
-    // User user = userRepository.findByUsername(username);
-    // if (user != null && passwordEncoder.matches(password, user.getPassword())) {
-    // return true;
-    // }
-    // return false;
-    // }
-
     public User addUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
