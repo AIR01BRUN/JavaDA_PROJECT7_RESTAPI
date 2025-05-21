@@ -9,7 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class CurveController {
         this.curveService = curveService;
     }
 
-    @RequestMapping("/curvePoint/list")
+    @GetMapping("/curvePoint/list")
     public String showListForm(Model model) {
         List<CurvePoint> curvePoints = curveService.getAllCurvePoints();
         model.addAttribute("curvePoints", curvePoints);

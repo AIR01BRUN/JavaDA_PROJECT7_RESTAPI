@@ -8,7 +8,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
@@ -21,7 +20,7 @@ public class RuleNameController {
         this.ruleNameService = ruleNameService;
     }
 
-    @RequestMapping("/ruleName/list")
+    @GetMapping("/ruleName/list")
     public String showListForm(Model model) {
         model.addAttribute("ruleNames", ruleNameService.getAllRuleNames());
         return "ruleName/list";
