@@ -38,23 +38,19 @@ public class SecurityConfig {
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        // Enable CSRF protection
         http.csrf()
                 .and()
-                // Configure URL-based security
                 .authorizeHttpRequests()
-                // Allow public access to login page and home
                 .requestMatchers("/login", "/").permitAll()
-                // Require authentication for all other requests
+                // .requestMatchers("/user/**").hasRole("ADMIN") // Recupere le role admin mais
+                // affiche un acced denied aux deux roles
                 .anyRequest().authenticated()
                 .and()
-                // Configure form login
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/bidList/list")
                 .permitAll()
                 .and()
-                // Configure logout
                 .logout()
                 .logoutSuccessUrl("/login?logout=true")
                 .permitAll();
