@@ -28,26 +28,21 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf() // Active la protection CSRF
+                .csrf()
                 .and()
                 .authorizeHttpRequests()
-                // Définit les URLs publiques accessibles sans authentification
-                .requestMatchers("/login", "/", "/css/**", "/js/**").permitAll()
-                // Toutes les autres URLs nécessitent une authentification
+                .requestMatchers("/login", "/").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                // Configuration du formulaire de connexion
                 .loginPage("/login")
                 .failureHandler((request, response, exception) -> {
-                    // Gestion des erreurs de connexion
                     request.getSession().setAttribute("error", "true");
                     response.sendRedirect("/login?error=true");
                 })
                 .defaultSuccessUrl("/bidList/list", true)
                 .permitAll()
                 .and()
-                // Configuration de la déconnexion
                 .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout=true")

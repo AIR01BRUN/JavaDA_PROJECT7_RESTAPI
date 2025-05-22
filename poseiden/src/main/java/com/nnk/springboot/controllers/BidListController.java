@@ -7,9 +7,11 @@ import com.nnk.springboot.service.BidListService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 
@@ -48,25 +50,25 @@ public class BidListController {
     public String validate(@Valid BidList bid, BindingResult result, Model model) {
         if (result.hasErrors()) {
 
-            return "bidList/add";// Return to the update form with errors
+            return "bidList/add";
         }
         bidListService.addBid(bid);
         return "redirect:/bidList/list";
     }
 
-    @PostMapping("/bidList/update/{id}")
+    @PutMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
             BindingResult result, Model model) {
 
         if (result.hasErrors()) {
 
-            return "bidList/update";// Return to the update form with errors
+            return "bidList/update";
         }
         bidListService.updateBid(bidList);
         return "redirect:/bidList/list";
     }
 
-    @GetMapping("/bidList/delete/{id}")
+    @DeleteMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         bidListService.deleteBid(id);
         return "redirect:/bidList/list";

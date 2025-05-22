@@ -10,6 +10,9 @@ import java.util.Optional;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for the CurveService class
+ */
 class CurveServiceTest {
 
     private CurvePointRepository curvePointRepository;
@@ -21,6 +24,9 @@ class CurveServiceTest {
         curveService = new CurveService(curvePointRepository);
     }
 
+    /**
+     * Test that getAllCurvePoints returns all curve points from repository
+     */
     @Test
     void testGetAllCurvePoints() {
         CurvePoint cp1 = new CurvePoint();
@@ -33,6 +39,9 @@ class CurveServiceTest {
         verify(curvePointRepository, times(1)).findAll();
     }
 
+    /**
+     * Test that getCurvePointById returns the curve point when found
+     */
     @Test
     void testGetCurvePointById_Found() {
         CurvePoint cp = new CurvePoint();
@@ -46,6 +55,9 @@ class CurveServiceTest {
         verify(curvePointRepository, times(1)).findById(1);
     }
 
+    /**
+     * Test that getCurvePointById returns null when curve point is not found
+     */
     @Test
     void testGetCurvePointById_NotFound() {
         when(curvePointRepository.findById(2)).thenReturn(Optional.empty());
@@ -56,6 +68,9 @@ class CurveServiceTest {
         verify(curvePointRepository, times(1)).findById(2);
     }
 
+    /**
+     * Test that addCurvePoint saves and returns the curve point
+     */
     @Test
     void testAddCurvePoint() {
         CurvePoint cp = new CurvePoint();
@@ -67,6 +82,9 @@ class CurveServiceTest {
         verify(curvePointRepository, times(1)).save(cp);
     }
 
+    /**
+     * Test that updateCurvePoint saves and returns the updated curve point
+     */
     @Test
     void testUpdateCurvePoint() {
         CurvePoint cp = new CurvePoint();
@@ -78,6 +96,9 @@ class CurveServiceTest {
         verify(curvePointRepository, times(1)).save(cp);
     }
 
+    /**
+     * Test that deleteCurvePoint deletes the curve point by ID
+     */
     @Test
     void testDeleteCurvePoint() {
         curveService.deleteCurvePoint(3);

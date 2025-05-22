@@ -14,23 +14,23 @@ public class CurvePoint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column()
+    @Column
     private Integer curveId;
-    @Column()
+    @Column
     private Timestamp asOfDate;
 
     @Positive(message = "Term quantity must be positive")
     @NotNull(message = "Term is required")
 
-    @Column()
+    @Column
     private Double term;
 
     @NotNull(message = "Value is required")
     @Positive(message = "Value must be positive")
-    @Column()
+    @Column
     private Double value;
 
-    @Column()
+    @Column
     private Timestamp creationDate;
 
     public CurvePoint(int i, double d, double e) {

@@ -11,22 +11,22 @@ public class RuleName {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Size(min = 1, max = 50, message = "DitchRating; cannot be blank")
-    @Column()
+    @Column
     private String name;
     @Size(min = 1, max = 50, message = "DitchRating; cannot be blank")
-    @Column()
+    @Column
     private String description;
     @Size(min = 1, max = 50, message = "DitchRating; cannot be blank")
-    @Column()
+    @Column
     private String json;
     @Size(min = 1, max = 50, message = "DitchRating; cannot be blank")
-    @Column()
+    @Column
     private String template;
     @Size(min = 1, max = 50, message = "DitchRating; cannot be blank")
-    @Column()
+    @Column
     private String sqlStr;
     @Size(min = 1, max = 50, message = "DitchRating; cannot be blank")
-    @Column()
+    @Column
     private String sqlPart;
 
     public RuleName(String string, String string2, String string3, String string4, String string5, String string6) {

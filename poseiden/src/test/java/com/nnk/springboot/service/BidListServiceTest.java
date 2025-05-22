@@ -11,6 +11,9 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit tests for the BidListService class
+ */
 class BidListServiceTest {
 
     private BidListRepository bidListRepository;
@@ -22,6 +25,9 @@ class BidListServiceTest {
         bidListService = new BidListService(bidListRepository);
     }
 
+    /**
+     * Test that getAllBids returns all bids from repository
+     */
     @Test
     void getAllBids_returnsAllBids() {
         BidList bid1 = new BidList();
@@ -34,6 +40,9 @@ class BidListServiceTest {
         verify(bidListRepository).findAll();
     }
 
+    /**
+     * Test that getBidById returns the bid when found
+     */
     @Test
     void getBidById_found_returnsBid() {
         BidList bid = new BidList();
@@ -47,6 +56,9 @@ class BidListServiceTest {
         verify(bidListRepository).findById(1);
     }
 
+    /**
+     * Test that getBidById returns null when bid is not found
+     */
     @Test
     void getBidById_notFound_returnsNull() {
         when(bidListRepository.findById(99)).thenReturn(Optional.empty());
@@ -57,6 +69,9 @@ class BidListServiceTest {
         verify(bidListRepository).findById(99);
     }
 
+    /**
+     * Test that addBid saves and returns the bid
+     */
     @Test
     void addBid_savesAndReturnsBid() {
         BidList bid = new BidList();
@@ -68,6 +83,9 @@ class BidListServiceTest {
         verify(bidListRepository).save(bid);
     }
 
+    /**
+     * Test that updateBid saves and returns the updated bid
+     */
     @Test
     void updateBid_savesAndReturnsBid() {
         BidList bid = new BidList();
@@ -79,6 +97,9 @@ class BidListServiceTest {
         verify(bidListRepository).save(bid);
     }
 
+    /**
+     * Test that deleteBid deletes the bid by ID
+     */
     @Test
     void deleteBid_deletesById() {
         bidListService.deleteBid(5);

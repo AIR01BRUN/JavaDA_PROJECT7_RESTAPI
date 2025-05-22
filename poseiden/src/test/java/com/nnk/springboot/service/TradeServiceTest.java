@@ -1,4 +1,3 @@
-
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.Trade;
@@ -12,6 +11,9 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit tests for the TradeService class
+ */
 class TradeServiceTest {
 
     private TradeRepository tradeRepository;
@@ -23,6 +25,9 @@ class TradeServiceTest {
         tradeService = new TradeService(tradeRepository);
     }
 
+    /**
+     * Test that getAllTrades returns all trades from repository
+     */
     @Test
     void getAllTrades() {
         Trade trade1 = new Trade();
@@ -35,6 +40,9 @@ class TradeServiceTest {
         verify(tradeRepository).findAll();
     }
 
+    /**
+     * Test that getTradeById returns the trade when found
+     */
     @Test
     void getTradeById() {
         Trade trade = new Trade();
@@ -48,6 +56,9 @@ class TradeServiceTest {
         verify(tradeRepository).findById(1);
     }
 
+    /**
+     * Test that getTradeById returns null when trade is not found
+     */
     @Test
     void getTradeById_NotFound() {
         when(tradeRepository.findById(99)).thenReturn(Optional.empty());
@@ -58,6 +69,9 @@ class TradeServiceTest {
         verify(tradeRepository).findById(99);
     }
 
+    /**
+     * Test that addTrade saves and returns the trade
+     */
     @Test
     void addTrade() {
         Trade trade = new Trade();
@@ -69,6 +83,9 @@ class TradeServiceTest {
         verify(tradeRepository).save(trade);
     }
 
+    /**
+     * Test that updateTrade saves and returns the updated trade
+     */
     @Test
     void updateTrade() {
         Trade trade = new Trade();
@@ -80,6 +97,9 @@ class TradeServiceTest {
         verify(tradeRepository).save(trade);
     }
 
+    /**
+     * Test that deleteTrade deletes the trade by ID
+     */
     @Test
     void deleteTrade() {
         tradeService.deleteTrade(5);

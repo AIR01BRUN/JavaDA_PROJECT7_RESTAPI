@@ -10,6 +10,9 @@ import java.util.Optional;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for the RuleNameService class
+ */
 class RuleNameServiceTest {
 
     private RuleNameRepository ruleNameRepository;
@@ -21,6 +24,9 @@ class RuleNameServiceTest {
         ruleNameService = new RuleNameService(ruleNameRepository);
     }
 
+    /**
+     * Test that getAllRuleNames returns all rule names from repository
+     */
     @Test
     void testGetAllRuleNames() {
         RuleName rule1 = new RuleName();
@@ -33,6 +39,9 @@ class RuleNameServiceTest {
         verify(ruleNameRepository, times(1)).findAll();
     }
 
+    /**
+     * Test that getRuleNameById returns the rule name when found
+     */
     @Test
     void testGetRuleNameById_Found() {
         RuleName rule = new RuleName();
@@ -46,6 +55,9 @@ class RuleNameServiceTest {
         verify(ruleNameRepository, times(1)).findById(1);
     }
 
+    /**
+     * Test that getRuleNameById returns null when rule name is not found
+     */
     @Test
     void testGetRuleNameById_NotFound() {
         when(ruleNameRepository.findById(1)).thenReturn(Optional.empty());
@@ -56,6 +68,9 @@ class RuleNameServiceTest {
         verify(ruleNameRepository, times(1)).findById(1);
     }
 
+    /**
+     * Test that addRuleName saves and returns the rule name
+     */
     @Test
     void testAddRuleName() {
         RuleName rule = new RuleName();
@@ -67,6 +82,9 @@ class RuleNameServiceTest {
         verify(ruleNameRepository, times(1)).save(rule);
     }
 
+    /**
+     * Test that updateRuleName saves and returns the updated rule name
+     */
     @Test
     void testUpdateRuleName() {
         RuleName rule = new RuleName();
@@ -78,6 +96,9 @@ class RuleNameServiceTest {
         verify(ruleNameRepository, times(1)).save(rule);
     }
 
+    /**
+     * Test that deleteRuleName deletes the rule name by ID
+     */
     @Test
     void testDeleteRuleName() {
         Integer id = 1;

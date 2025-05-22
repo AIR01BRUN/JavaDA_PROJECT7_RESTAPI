@@ -11,6 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit tests for the UserService class
+ */
 class UserServiceTest {
 
     private UserRepository userRepository;
@@ -22,6 +25,9 @@ class UserServiceTest {
         userService = new UserService(userRepository);
     }
 
+    /**
+     * Test that addUser saves the user with an encoded password
+     */
     @Test
     void AddUser() {
 
@@ -35,6 +41,9 @@ class UserServiceTest {
         assertNotEquals("password123", savedUser.getPassword());
     }
 
+    /**
+     * Test that getAllUsers returns all users from repository
+     */
     @Test
     void getAllUsers() {
         List<User> users = Arrays.asList(new User(), new User());
@@ -46,6 +55,9 @@ class UserServiceTest {
         verify(userRepository).findAll();
     }
 
+    /**
+     * Test that getUserById returns the user when found
+     */
     @Test
     void getUserById() {
         User user = new User();
@@ -58,6 +70,9 @@ class UserServiceTest {
         verify(userRepository).findById(1);
     }
 
+    /**
+     * Test that getUserById returns null when user is not found
+     */
     @Test
     void getUserById_Not() {
         when(userRepository.findById(1)).thenReturn(Optional.empty());
@@ -68,6 +83,9 @@ class UserServiceTest {
         verify(userRepository).findById(1);
     }
 
+    /**
+     * Test that updateUser saves the user with an encoded password
+     */
     @Test
     void updateUser() {
         User user = new User();
@@ -86,6 +104,9 @@ class UserServiceTest {
         assertEquals(updatedUser, result);
     }
 
+    /**
+     * Test that deleteUser deletes the user by ID
+     */
     @Test
     void deleteUser() {
         userService.deleteUser(1);

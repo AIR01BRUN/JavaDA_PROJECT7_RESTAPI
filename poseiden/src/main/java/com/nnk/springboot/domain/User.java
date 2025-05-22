@@ -13,17 +13,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @NotBlank(message = "Username is mandatory")
-    @Column()
+    @Column
     private String username;
-    @Size(min = 2, message = "Password must be at least 8 character")
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$", message = "Password must contain at least one letter and one number")
-    @Column()
+    // @Size(min = 2, message = "Password must be at least 8 character")
+    // @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$", message = "Password
+    // must contain at least one letter and one number")
+    @Column
     private String password;
     @NotNull(message = "FullName is mandatory")
-    @Column()
+    @Column
     private String fullname;
     @NotNull(message = "Role is mandatory")
-    @Column()
+    @Column
     private String role;
     @Column(name = "enabled", columnDefinition = "boolean default true")
     private boolean enabled = true;

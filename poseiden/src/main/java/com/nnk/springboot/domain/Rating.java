@@ -15,17 +15,17 @@ public class Rating {
     private Integer id;
 
     @Size(min = 1, max = 50, message = "MoodysRating cannot be blank")
-    @Column()
+    @Column
     private String moodysRating;
     @Size(min = 1, max = 50, message = "SandPRating cannot be blank")
-    @Column()
+    @Column
     private String sandPrating;
     @Size(min = 1, max = 50, message = "DitchRating; cannot be blank")
-    @Column()
+    @Column
     private String fitchRating;
     @NotNull(message = "Order is required")
     @Positive(message = "Order must be positive")
-    @Column()
+    @Column
     private Integer orderNumber;
 
     public Rating(String string, String string2, String string3, int i) {

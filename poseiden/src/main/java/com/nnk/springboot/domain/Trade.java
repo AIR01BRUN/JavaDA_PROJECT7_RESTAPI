@@ -14,50 +14,50 @@ public class Trade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Size(min = 1, max = 50, message = "Account is required")
-    @Column()
+    @Column
     private String account;
 
     @Size(min = 1, max = 50, message = "Type is required")
-    @Column()
+    @Column
     private String type;
 
     @NotNull(message = "Buy quantity is required")
     @Positive(message = "Buy quantity must be positive")
-    @Column()
+    @Column
     private Double buyQuantity;
-    @Column()
+    @Column
     private Double sellQuantity;
-    @Column()
+    @Column
     private Double buyPrice;
-    @Column()
+    @Column
     private Double sellPrice;
-    @Column()
+    @Column
     private String benchmark;
-    @Column()
+    @Column
     private Timestamp tradeDate;
-    @Column()
+    @Column
     private String security;
-    @Column()
+    @Column
     private String status;
-    @Column()
+    @Column
     private String trader;
-    @Column()
+    @Column
     private String book;
-    @Column()
+    @Column
     private String creationName;
-    @Column()
+    @Column
     private Timestamp creationDate;
-    @Column()
+    @Column
     private String revisionName;
-    @Column()
+    @Column
     private Timestamp revisionDate;
-    @Column()
+    @Column
     private String dealName;
-    @Column()
+    @Column
     private String dealType;
-    @Column()
+    @Column
     private String sourceListId;
-    @Column()
+    @Column
     private String side;
 
     public Trade(String string, String string2) {

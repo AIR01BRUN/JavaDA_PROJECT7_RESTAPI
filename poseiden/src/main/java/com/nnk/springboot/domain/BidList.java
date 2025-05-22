@@ -16,51 +16,51 @@ public class BidList {
     private Integer id;
 
     @Size(min = 1, max = 50, message = "Account cannot be blank")
-    @Column()
+    @Column
     private String account;
 
     @Size(min = 1, max = 50, message = "Type cannot be blank")
-    @Column()
+    @Column
     private String type;
 
     @NotNull(message = "Bid Quantity is required")
     @Positive(message = "Bid Quantity must be positive")
-    @Column()
+    @Column
     private Double bidQuantity;
 
-    @Column()
+    @Column
     private Double askQuantity;
-    @Column()
+    @Column
     private Double bid;
-    @Column()
+    @Column
     private Double ask;
-    @Column()
+    @Column
     private String benchmark;
-    @Column()
+    @Column
     private String commentary;
-    @Column()
+    @Column
     private String security;
-    @Column()
+    @Column
     private String status;
-    @Column()
+    @Column
     private String trader;
-    @Column()
+    @Column
     private String book;
-    @Column()
+    @Column
     private String creationName;
-    @Column()
+    @Column
     private Timestamp creationDate;
-    @Column()
+    @Column
     private String revisionName;
-    @Column()
+    @Column
     private Timestamp revisionDate;
-    @Column()
+    @Column
     private String dealName;
-    @Column()
+    @Column
     private String dealType;
-    @Column()
+    @Column
     private String sourceListId;
-    @Column()
+    @Column
     private String side;
 
     public BidList() {
