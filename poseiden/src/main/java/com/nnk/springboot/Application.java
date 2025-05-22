@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Application {
 
 	public static void main(String[] args) {
-		System.setProperty("spring.profiles.active", "prod");
-		SpringApplication.run(Application.class, args);
+		SpringApplication application = new SpringApplication(Application.class);
+		application.setAdditionalProfiles("dev");// profile
 	}
 }
