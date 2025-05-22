@@ -1,7 +1,6 @@
 package com.nnk.springboot.domain;
 
-import javax.validation.constraints.NotNull;
-
+import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -10,13 +9,23 @@ import jakarta.validation.constraints.Size;
 @Table(name = "rating")
 public class Rating {
 
+    /**
+     * Unique identifier for the rating
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    /**
+     * Moody's rating value
+     */
     @Size(min = 1, max = 50, message = "MoodysRating cannot be blank")
     @Column
     private String moodysRating;
+
+    /**
+     * Standard & Poor's rating value
+     */
     @Size(min = 1, max = 50, message = "SandPRating cannot be blank")
     @Column
     private String sandPrating;

@@ -11,18 +11,30 @@ import jakarta.validation.constraints.Size;
 @Table(name = "bidlist")
 public class BidList {
 
+    /**
+     * Unique identifier for the bid
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    /**
+     * Account associated with the bid
+     */
     @Size(min = 1, max = 50, message = "Account cannot be blank")
     @Column
     private String account;
 
+    /**
+     * Type of the bid
+     */
     @Size(min = 1, max = 50, message = "Type cannot be blank")
     @Column
     private String type;
 
+    /**
+     * Quantity of the bid
+     */
     @NotNull(message = "Bid Quantity is required")
     @Positive(message = "Bid Quantity must be positive")
     @Column

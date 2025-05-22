@@ -10,17 +10,30 @@ import jakarta.validation.constraints.Size;
 @Table(name = "trade")
 public class Trade {
 
+    /**
+     * Unique identifier for the trade
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    /**
+     * Account associated with the trade
+     */
     @Size(min = 1, max = 50, message = "Account is required")
     @Column
     private String account;
 
+    /**
+     * Type of the trade
+     */
     @Size(min = 1, max = 50, message = "Type is required")
     @Column
     private String type;
 
+    /**
+     * Buy quantity for the trade
+     */
     @NotNull(message = "Buy quantity is required")
     @Positive(message = "Buy quantity must be positive")
     @Column

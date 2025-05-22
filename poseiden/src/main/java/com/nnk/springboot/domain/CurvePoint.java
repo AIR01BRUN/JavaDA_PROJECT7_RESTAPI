@@ -11,17 +11,30 @@ import jakarta.validation.constraints.Positive;
 @Table(name = "curvepoint")
 public class CurvePoint {
 
+    /**
+     * Unique identifier for the curve point
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    /**
+     * ID of the curve this point belongs to
+     */
     @Column
     private Integer curveId;
+
+    /**
+     * Date when this curve point is valid
+     */
     @Column
     private Timestamp asOfDate;
 
+    /**
+     * Term value of the curve point
+     */
     @Positive(message = "Term quantity must be positive")
     @NotNull(message = "Term is required")
-
     @Column
     private Double term;
 

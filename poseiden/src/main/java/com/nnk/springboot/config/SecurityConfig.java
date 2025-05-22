@@ -4,85 +4,88 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.authentication.ProviderManager;
 
-import java.util.Arrays;
-
+/**
+ * Configuration class for Spring Security.
+ * Handles authentication, authorization, and password encoding.
+ */
 @Configuration
 public class SecurityConfig {
 
     private final DataSource dataSource;
 
+    /**
+     * Constructor that injects the DataSource for database authentication
+     * 
+     * @param dataSource the data source for user authentication
+     */
     public SecurityConfig(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
+    /**
+     * Configures the security filter chain with authentication and authorization
+     * rules
+     * 
+     * @param http the HttpSecurity to configure
+     * @return the built SecurityFilterChain
+     * @throws Exception if configuration fails
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf()
+        // Enable CSRF protection
+        http.csrf()
                 .and()
+                // Configure URL-based security
                 .authorizeHttpRequests()
+                // Allow public access to login page and home
                 .requestMatchers("/login", "/").permitAll()
+                // Require authentication for all other requests
                 .anyRequest().authenticated()
                 .and()
+                // Configure form login
                 .formLogin()
                 .loginPage("/login")
-                .failureHandler((request, response, exception) -> {
-                    request.getSession().setAttribute("error", "true");
-                    response.sendRedirect("/login?error=true");
-                })
-                .defaultSuccessUrl("/bidList/list", true)
+                .defaultSuccessUrl("/bidList/list")
                 .permitAll()
                 .and()
+                // Configure logout
                 .logout()
-                .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout=true")
                 .permitAll();
+
         return http.build();
     }
 
-    // Gestionnaire d'authentification personnalisé
-    @Bean
-    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
-        return new ProviderManager(Arrays.asList(authProvider()));
-    }
-
-    // Configuration du fournisseur d'authentification
-    @Bean
-    public DaoAuthenticationProvider authProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        // Utilise notre service de détails utilisateur personnalisé
-        authProvider.setUserDetailsService(userDetailsService());
-        // Configure l'encodeur de mot de passe
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
-    }
-
-    // Configuration du service de détails utilisateur avec JDBC
+    /**
+     * Configures the JDBC-based user details service
+     * 
+     * @return configured JdbcUserDetailsManager
+     */
     @Bean
     public JdbcUserDetailsManager userDetailsService() {
         JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
-        // Requête SQL pour récupérer l'utilisateur
+        // SQL query to retrieve user details
         userDetailsManager.setUsersByUsernameQuery(
-                "SELECT username, password, enabled FROM users WHERE username=? LIMIT 1");
-        // Requête SQL pour récupérer les rôles
+                "SELECT username, password, enabled FROM users WHERE username=?");
+        // SQL query to retrieve user roles
         userDetailsManager.setAuthoritiesByUsernameQuery(
-                "SELECT username, role FROM users WHERE username=? LIMIT 1");
+                "SELECT username, role FROM users WHERE username=?");
         return userDetailsManager;
     }
 
+    /**
+     * Configures the password encoder for secure password storage
+     * 
+     * @return BCryptPasswordEncoder instance
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }

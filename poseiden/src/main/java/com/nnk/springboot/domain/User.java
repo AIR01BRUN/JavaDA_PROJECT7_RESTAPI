@@ -3,23 +3,34 @@ package com.nnk.springboot.domain;
 import javax.validation.constraints.NotBlank;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
 public class User {
+
+    /**
+     * Unique identifier for the user
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    /**
+     * Username for authentication
+     */
     @NotBlank(message = "Username is mandatory")
     @Column
     private String username;
-    // @Size(min = 2, message = "Password must be at least 8 character")
-    // @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$", message = "Password
-    // must contain at least one letter and one number")
+
+    /**
+     * User's password (will be encrypted)
+     */
     @Column
     private String password;
+
+    /**
+     * User's full name
+     */
     @NotNull(message = "FullName is mandatory")
     @Column
     private String fullname;

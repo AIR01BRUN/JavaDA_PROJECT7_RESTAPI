@@ -7,13 +7,24 @@ import jakarta.validation.constraints.Size;
 @Table(name = "rulename")
 public class RuleName {
 
+    /**
+     * Unique identifier for the rule
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Size(min = 1, max = 50, message = "DitchRating; cannot be blank")
+
+    /**
+     * Name of the rule
+     */
+    @Size(min = 1, max = 50, message = "Name cannot be blank")
     @Column
     private String name;
-    @Size(min = 1, max = 50, message = "DitchRating; cannot be blank")
+
+    /**
+     * Description of the rule
+     */
+    @Size(min = 1, max = 50, message = "Description cannot be blank")
     @Column
     private String description;
     @Size(min = 1, max = 50, message = "DitchRating; cannot be blank")
