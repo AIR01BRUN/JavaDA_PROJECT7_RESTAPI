@@ -2,6 +2,8 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.service.UserService;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -35,6 +39,12 @@ public class UserController {
      */
     @GetMapping("/user/list")
     public String home(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+            return "redirect:/bidList/list";
+        }
+
         List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
         return "user/list";
@@ -48,6 +58,12 @@ public class UserController {
      */
     @GetMapping("/user/add")
     public String showAddForm(User user) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+            return "redirect:/bidList/list";
+        }
         return "user/add";
     }
 
@@ -61,6 +77,12 @@ public class UserController {
      */
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+            return "redirect:/bidList/list";
+        }
+
         User user = userService.getUserById(id);
         if (user == null) {
             throw new IllegalArgumentException("Invalid user Id:" + id);
@@ -79,6 +101,11 @@ public class UserController {
      */
     @DeleteMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+            return "redirect:/bidList/list";
+        }
         userService.deleteUser(id);
         model.addAttribute("users", userService.getAllUsers());
         return "redirect:/user/list";
@@ -94,6 +121,11 @@ public class UserController {
      */
     @PostMapping("/user/validate")
     public String validate(@Valid User user, BindingResult result, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+            return "redirect:/bidList/list";
+        }
         if (result.hasErrors()) {
             return "user/add";
         }
@@ -113,6 +145,11 @@ public class UserController {
     @PutMapping("/user/update/{id}")
     public String updateUser(@PathVariable("id") Integer id, @Valid User user,
             BindingResult result, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+            return "redirect:/bidList/list";
+        }
         if (result.hasErrors()) {
             return "user/update";
         }

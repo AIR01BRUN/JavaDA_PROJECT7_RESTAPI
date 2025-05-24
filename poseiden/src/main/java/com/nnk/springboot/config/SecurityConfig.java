@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
@@ -15,6 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * Handles authentication, authorization, and password encoding.
  */
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
 
     private final DataSource dataSource;
@@ -42,8 +44,6 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/login", "/").permitAll()
-                // .requestMatchers("/user/**").hasRole("ADMIN") // Recupere le role admin mais
-                // affiche un acced denied aux deux roles
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
